@@ -27,3 +27,4 @@ export function truncateAddress(address: string, start = 6, end = 4): string {
 export function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
+

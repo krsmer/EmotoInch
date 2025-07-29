@@ -20,7 +20,7 @@ Frontend (Next.js 14) ↔ API Routes ↔ 1inch APIs
 
 ---
 
-## 📁 Project Structure & Architecture
+##  Project Structure & Architecture
 
 ### Architectural Layers:
 
@@ -207,13 +207,20 @@ interface SimpleTokenScorer {
 - **Volume (30%):** Liquidity indicator  
 - **Category Match (30%):** Mood alignment
 
-### 3. 1inch Integration (Essential Only)
+### 3. 1inch Integration (REQUIRED FOR ETHGLOBAL)
 ```typescript
-interface OneInchBasic {
+interface OneInchComplete {
+  // Data APIs 
   getTokenList(): Promise<Token[]>
   getTokenPrices(addresses: string[]): Promise<PriceData[]>
+  
+  // Swap APIs 
   getSwapQuote(params: SwapParams): Promise<SwapQuote>
   executeSwap(params: SwapParams): Promise<Transaction>
+  
+  // Additional APIs for bonus points
+  getWalletBalance(address: string): Promise<Balance[]>
+  getTokenMetadata(address: string): Promise<TokenMetadata>
 }
 ```
 
@@ -235,7 +242,7 @@ interface AppState {
 
 ---
 
-## 🔐 Security Architecture
+##  Security Architecture
 
 ### Authentication & Authorization:
 - **Wallet-based Authentication:** No traditional login required
@@ -257,7 +264,7 @@ interface AppState {
 
 ---
 
-## 📊 Performance Architecture - MVP
+##  Performance Architecture - MVP
 
 ### Frontend Optimizations (Basic):
 - **Simple Code Splitting:** Page-level splitting only
@@ -277,7 +284,7 @@ interface AppState {
 
 ---
 
-## 🔄 Data Flow Architecture
+##  Data Flow Architecture
 
 ### User Interaction Flow:
 ```
@@ -294,7 +301,7 @@ State Update ← Context ← Cache ← Parse ← Response ← Data
 
 ---
 
-## 🧪 Testing Strategy - MVP
+##  Testing Strategy - MVP
 
 ### Minimal Testing Approach:
 - **Manual Testing:** Core user flows tested manually
@@ -310,7 +317,7 @@ State Update ← Context ← Cache ← Parse ← Response ← Data
 
 ---
 
-## 🚀 Deployment Architecture - Simple
+##  Deployment Architecture - Simple
 
 ### Development:
 - **Local Development:** Next.js dev server

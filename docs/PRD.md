@@ -1,6 +1,6 @@
 # EmotoInch - Product Requirements Document (PRD) - MVP Version
 
-## 📊 Executive Summary
+##  Executive Summary
 
 **Product Name:** EmotoInch (CryptoMood)  
 **Tagline:** "How are you feeling? Let's trade!"  
@@ -13,7 +13,7 @@ EmotoInch makes crypto trading accessible by translating emotions into smart tok
 
 ---
 
-## 🎯 Problem Statement
+##  Problem Statement
 
 ### Current Problems in Crypto Trading:
 1. **Analysis Paralysis:** Too many technical indicators overwhelm new users
@@ -52,7 +52,7 @@ A single platform that translates emotional states into personalized token recom
 
 ---
 
-## 🚀 Core Features & Value Propositions - MVP
+##  Core Features & Value Propositions - MVP
 
 ### 1. Simple Mood Selection
 **Feature:** 5 emotional states with clear risk indicators
@@ -81,7 +81,7 @@ A single platform that translates emotional states into personalized token recom
 
 ---
 
-## 📱 User Experience Flow
+##  User Experience Flow
 
 ### Core User Journey:
 1. **Landing:** Engaging hero section explaining the concept
@@ -101,7 +101,7 @@ A single platform that translates emotional states into personalized token recom
 
 ---
 
-## 🎨 Design Principles
+##  Design Principles
 
 ### Visual Identity:
 - **Emotion-Driven Colors:** Each mood has signature color palette
@@ -139,12 +139,10 @@ A single platform that translates emotional states into personalized token recom
 ### User Engagement:
 - **Mood Selection Rate:** % of users who complete mood selection
 - **Token Click Rate:** Average tokens viewed per session
-- **Swap Completion Rate:** % of quotes that convert to swaps
 - **Session Duration:** Time spent on platform
 
 ### Technical Metrics:
 - **Page Load Speed:** < 3 seconds initial load
-- **Swap Success Rate:** > 90% successful transactions
 - **API Response Time:** < 1000ms average
 - **Mobile Performance:** Functional on all major mobile browsers
 
@@ -172,27 +170,27 @@ A single platform that translates emotional states into personalized token recom
 
 ---
 
-## 🎯 Minimum Viable Product (MVP) - 6 Days
+##  Minimum Viable Product (MVP) - 6 Days
 
 ### Must-Have Features (Day 1-6):
-- ✅ 5 mood categories with simple selector
-- ✅ Basic token recommendation algorithm
-- ✅ Functional swap interface via 1inch
-- ✅ Wallet connection (MetaMask focus)
-- ✅ Mobile-responsive design
-- ✅ Real-time price data display
+-  5 mood categories with simple selector
+-  Basic token recommendation algorithm
+-  Functional swap interface via 1inch
+-  Wallet connection (MetaMask focus)
+-  Mobile-responsive design
+-  Real-time price data display
 
 ### Explicitly Removed for MVP:
-- ❌ Portfolio tracking and analytics
-- ❌ Historical mood performance
-- ❌ Social features and sharing
-- ❌ Advanced animations
-- ❌ Multi-chain support
-- ❌ Complex UI components
+-  Portfolio tracking and analytics
+-  Historical mood performance
+-  Social features and sharing
+-  Advanced animations
+-  Multi-chain support
+-  Complex UI components
 
 ---
 
-## 🚀 Future Roadmap (Post-Hackathon)
+##  Future Roadmap (Post-Hackathon)
 
 ### Phase 2: Enhanced Analytics
 - Machine learning mood optimization
@@ -214,7 +212,7 @@ A single platform that translates emotional states into personalized token recom
 
 ---
 
-## 📋 Acceptance Criteria - MVP
+##  Acceptance Criteria - MVP
 
 ### Core Functionality:
 1. User can select from 5 emotional states and see relevant token recommendations
@@ -226,7 +224,6 @@ A single platform that translates emotional states into personalized token recom
 
 ### Performance Standards:
 - Page load time < 3 seconds
-- Swap execution success rate > 90%
 - Mobile compatibility on iOS Safari and Android Chrome
 - API response time < 1000ms average
 

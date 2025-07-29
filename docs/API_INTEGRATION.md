@@ -1,15 +1,15 @@
 # EmotoInch - 1inch API Integration Plan - MVP Version
 
-## 🎯 MVP API Strategy - Essential Integration Only
+##  MVP API Strategy - Essential Integration Only
 
 ### Strategic Goal: **Core 1inch API Usage for Hackathon MVP**
 This document outlines how EmotoInch will use essential 1inch APIs to create a functional trading experience within 6 days, focusing on core functionality over comprehensive integration.
 
 ---
 
-## 📋 Essential 1inch APIs for MVP
+##  Essential 1inch APIs for MVP
 
-### 🔍 1. Token List API - Basic Implementation
+###  1. Token List API - Basic Implementation
 
 #### **API Endpoint:** `/tokens`
 ```typescript
@@ -37,14 +37,14 @@ const tokenService = {
 ```
 
 **MVP Integration Points:**
-- ✅ **Basic Token Filtering:** Filter by mood categories only
-- ✅ **Simple Display:** Logo, name, symbol for UI
-- ✅ **Essential Metadata:** Tags for mood matching
-- ❌ **Skip:** Complex categorization, extensive metadata
+-  **Basic Token Filtering:** Filter by mood categories only
+-  **Simple Display:** Logo, name, symbol for UI
+-  **Essential Metadata:** Tags for mood matching
+-  **Skip:** Complex categorization, extensive metadata
 
 ---
 
-### � 2. Price Feed API - Essential Pricing
+###  2. Price Feed API - Essential Pricing
 
 #### **API Endpoint:** `/price/v1.1/{chain}/{addresses}`
 ```typescript
@@ -68,11 +68,11 @@ const priceService = {
 ```
 
 **MVP Integration Points:**
-- ✅ **Real-time Pricing:** Current prices for recommended tokens
-- ✅ **Basic Display:** Price formatting for UI
-- ❌ **Skip:** Historical data, complex analytics, price charts
+-  **Real-time Pricing:** Current prices for recommended tokens
+-  **Basic Display:** Price formatting for UI
+-  **Skip:** Historical data, complex analytics, price charts
 
-### 🔍 1. Token List & Metadata APIs
+###  1. Token List & Metadata APIs
 
 #### **API Endpoint:** `/tokens`
 ```typescript
@@ -216,14 +216,14 @@ const swapExecutionService = {
 ```
 
 **EmotoInch Integration Points:**
-- ✅ **Mood-Contextual Quotes:** Explain why the swap aligns with user's mood
-- ✅ **Risk-Adjusted Pricing:** Show quotes with mood-appropriate risk warnings
-- ✅ **Alternative Suggestions:** Offer similar tokens that match the mood
-- ✅ **Swap Analytics:** Track performance of mood-based swaps
+-  **Mood-Contextual Quotes:** Explain why the swap aligns with user's mood
+-  **Risk-Adjusted Pricing:** Show quotes with mood-appropriate risk warnings
+-  **Alternative Suggestions:** Offer similar tokens that match the mood
+-  **Swap Analytics:** Track performance of mood-based swaps
 
 ---
 
-### 💳 4. Wallet Balance & Portfolio APIs
+###  4. Wallet Balance & Portfolio APIs
 
 #### **API Endpoint:** `/balance/v1.2/{chain}/{address}`
 ```typescript
@@ -251,14 +251,14 @@ const portfolioService = {
 ```
 
 **EmotoInch Integration Points:**
-- ✅ **Portfolio Mood Analysis:** Show how current holdings align with mood
-- ✅ **Rebalancing Suggestions:** Recommend changes based on mood shift
-- ✅ **Performance Tracking:** Track mood-based trading performance
-- ✅ **Diversification Scoring:** Assess portfolio risk vs mood tolerance
+-  **Portfolio Mood Analysis:** Show how current holdings align with mood
+-  **Rebalancing Suggestions:** Recommend changes based on mood shift
+-  **Performance Tracking:** Track mood-based trading performance
+-  **Diversification Scoring:** Assess portfolio risk vs mood tolerance
 
 ---
 
-### ⛽ 5. Gas Price & Fee Optimization APIs
+###  5. Gas Price & Fee Optimization APIs
 
 #### **API Endpoint:** `/gas-price`
 ```typescript
@@ -280,13 +280,13 @@ const gasOptimizationService = {
 ```
 
 **EmotoInch Integration Points:**
-- ✅ **Mood-Based Gas Optimization:** Adjust gas price based on emotional urgency
-- ✅ **Cost Transparency:** Show gas costs with mood-appropriate explanations
-- ✅ **Time Estimates:** Provide transaction time based on mood preferences
+-  **Mood-Based Gas Optimization:** Adjust gas price based on emotional urgency
+-  **Cost Transparency:** Show gas costs with mood-appropriate explanations
+-  **Time Estimates:** Provide transaction time based on mood preferences
 
 ---
 
-### 📊 6. Limit Order Protocol Integration
+###  6. Limit Order Protocol Integration
 
 #### **API Endpoints:** `/orderbook/v4.0/{chain}/order/*`
 ```typescript
@@ -312,13 +312,13 @@ const limitOrderService = {
 ```
 
 **EmotoInch Integration Points:**
-- ✅ **Advanced Trading Features:** Limit orders for sophisticated mood strategies
-- ✅ **Patience vs Urgency:** Map mood to order types (market vs limit)
-- ✅ **Order Management:** Track and manage mood-based orders
+-  **Advanced Trading Features:** Limit orders for sophisticated mood strategies
+-  **Patience vs Urgency:** Map mood to order types (market vs limit)
+-  **Order Management:** Track and manage mood-based orders
 
 ---
 
-### 🌐 7. Web3 API & Blockchain Interactions
+###  7. Web3 API & Blockchain Interactions
 
 #### **API Endpoints:** `/web3/v1/*`
 ```typescript
@@ -351,7 +351,7 @@ const web3IntegrationService = {
 
 ---
 
-## 🔄 API Integration Architecture
+##  API Integration Architecture
 
 ### Request Flow Architecture:
 ```typescript
@@ -425,7 +425,7 @@ const errorHandlingStrategy = {
 
 ---
 
-## 📊 API Usage Analytics & Optimization
+##  API Usage Analytics & Optimization
 
 ### Usage Tracking:
 ```typescript
@@ -479,33 +479,33 @@ const performanceOptimizer = {
 
 ---
 
-## 🎯 Hackathon Maximization Strategy
+##  Hackathon Maximization Strategy
 
 ### 1. **Comprehensive API Coverage**
-- ✅ Use ALL available 1inch APIs
-- ✅ Document each integration point
-- ✅ Show depth of integration beyond basic swap
+-  Use ALL available 1inch APIs
+-  Document each integration point
+-  Show depth of integration beyond basic swap
 
 ### 2. **Innovation Layer**
-- ✅ Add mood context to every API call
-- ✅ Create unique user experience through emotion
-- ✅ Build analytics on top of 1inch data
+-  Add mood context to every API call
+-  Create unique user experience through emotion
+-  Build analytics on top of 1inch data
 
 ### 3. **Technical Excellence**
-- ✅ Robust error handling
-- ✅ Performance optimization
-- ✅ Scalable architecture
-- ✅ Comprehensive testing
+-  Robust error handling
+-  Performance optimization
+-  Scalable architecture
+-  Comprehensive testing
 
 ### 4. **Demo-Ready Features**
-- ✅ Real-time API usage dashboard
-- ✅ Mood-based trading analytics
-- ✅ Portfolio performance tracking
-- ✅ Social mood trends
+-  Real-time API usage dashboard
+-  Mood-based trading analytics
+-  Portfolio performance tracking
+-  Social mood trends
 
 ---
 
-## 🔐 Security & Compliance
+##  Security & Compliance
 
 ### API Key Management:
 ```typescript
@@ -525,14 +525,14 @@ const securityConfig = {
 ```
 
 ### Data Privacy:
-- 🔐 **No Personal Data Storage:** Only wallet addresses and mood preferences
-- 🔐 **Local First:** Sensitive data stays on client
-- 🔐 **Anonymized Analytics:** Track usage patterns, not individuals
-- 🔐 **Transparent Permissions:** Clear data usage disclosure
+-  **No Personal Data Storage:** Only wallet addresses and mood preferences
+-  **Local First:** Sensitive data stays on client
+-  **Anonymized Analytics:** Track usage patterns, not individuals
+-  **Transparent Permissions:** Clear data usage disclosure
 
 ---
 
-## 📈 Success Metrics
+##  Success Metrics
 
 ### Integration Depth Score:
 ```typescript
