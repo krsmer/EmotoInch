@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { MoodSelector } from '@/components/MoodSelector'
 import { TokenCard } from '@/components/TokenCard'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
+import TextType from '@/components/ui/TextType'
 import { Mood, Token } from '@/types'
 
 interface TokenRecommendation {
@@ -54,16 +55,16 @@ const Page = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-500">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white shadow-2xl border-purple-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-2">
               EmotoInch 🎭
             </h1>
             <p className="text-lg text-gray-600">
-              Trade with your emotions, powered by 1inch
+              Trade with your emotions, powered by <span className='bg-blue-800 rounded-lg p-2.5 text-white'>1Inch</span>
             </p>
           </div>
         </div>
@@ -128,10 +129,23 @@ const Page = () => {
           <div className="text-center py-16">
             <div className="text-6xl mb-4">🎭</div>
             <h2 className="text-xl font-semibold text-gray-900 mb-2">
-              Select your trading mood
+              <TextType 
+                text={[
+                  "How are you feeling today about trading?",
+                  "Select your trading mood",
+                  "Get personalized recommendations",
+                  "Trade with your emotions"
+                ]}
+                typingSpeed={75}
+                pauseDuration={1500}
+                showCursor={true}
+                cursorCharacter="|"
+                className="text-xl font-semibold text-gray-900"
+              />
             </h2>
-            <p className="text-gray-600">
-              Get personalized token recommendations based on how you're feeling
+            <p className="text-gray-600 mt-4">
+              Get <span className='font-extrabold text-blue-800'>personalized</span> token 
+              recommendations based on how you're feeling
             </p>
           </div>
         )}

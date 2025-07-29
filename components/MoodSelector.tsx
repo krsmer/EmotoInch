@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
+import TextPressure from '@/components/ui/TextPressure'
 import { MOODS } from '@/data/moods'
 import { Mood } from '@/types'
 
@@ -17,10 +18,22 @@ export function MoodSelector({ onMoodSelect, selectedMood }: MoodSelectorProps) 
   return (
     <div className="w-full max-w-4xl mx-auto">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">
-          How are you feeling about trading today?
-        </h2>
-        <p className="text-gray-600 text-lg">
+        <div style={{position: 'relative', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <TextPressure
+            text="How are you feeling about trading today?"
+            flex={true}
+            alpha={false}
+            stroke={false}
+            width={true}
+            weight={true}
+            italic={true}
+            textColor="#1f2937"
+            strokeColor="#ec4899"
+            minFontSize={28}
+            className="text-center"
+          />
+        </div>
+        <p className="text-gray-600 text-lg mt-4">
           Choose your mood to get personalized token recommendations
         </p>
       </div>
