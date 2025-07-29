@@ -1,4 +1,4 @@
-import { Token, TokenPrice, SwapQuote, SwapParams, OneInchTokenListResponse, OneInchPriceResponse, OneInchQuoteResponse } from '@/types'
+import { Token, TokenPrice, SwapQuote, SwapParams, OneInchTokenListResponse, OneInchPriceResponse, OneInchQuoteResponse, OneInchSwapResponse } from '@/types'
 
 class OneInchAPI {
   private baseURL: string
@@ -121,9 +121,11 @@ class OneInchAPI {
     }
   }
 
-  // Execute swap (will be implemented later)
+  // Execute swap transaction
   async executeSwap(params: SwapParams): Promise<any> {
     try {
+      console.log('Creating swap transaction for 1inch API...')
+      
       const queryParams = new URLSearchParams({
         src: params.src,
         dst: params.dst,
@@ -132,8 +134,34 @@ class OneInchAPI {
         slippage: params.slippage.toString(),
       })
 
-      const response = await this.request(`/swap/v6.0/1/swap?${queryParams}`)
-      return response
+      // Add optional parameters
+      if (params.gasPrice) {
+        queryParams.append('gasPrice', params.gasPrice)
+      }
+      if (params.disableEstimate !== undefined) {
+        queryParams.append('disableEstimate', params.disableEstimate.toString())
+      }
+
+      console.log('Swap parameters:', Object.fromEntries(queryParams))
+
+      const response = await this.request<OneInchSwapResponse>(`/swap/v6.0/1/swap?${queryParams}`)
+      
+      console.log('1inch swap response received:', {
+        hasTransaction: !!response.tx,
+        gasPrice: response.tx?.gasPrice,
+        to: response.tx?.to
+      })
+
+      return {
+        transaction: response.tx,
+        fromToken: response.fromToken,
+        toToken: response.toToken,
+        fromAmount: response.fromAmount,
+        toAmount: response.toAmount,
+        protocols: response.protocols,
+        gasPrice: response.tx?.gasPrice,
+        gas: response.tx?.gas
+      }
     } catch (error) {
       console.error('Failed to execute swap:', error)
       throw error

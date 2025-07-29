@@ -17,6 +17,7 @@ export interface Token {
   logoURI?: string
   decimals: number
   tags?: string[]
+  price?: number
 }
 
 export interface TokenPrice {
@@ -40,6 +41,8 @@ export interface SwapParams {
   amount: string
   from: string // wallet address
   slippage: number
+  gasPrice?: string // gas price setting
+  disableEstimate?: boolean // disable gas estimation
 }
 
 export interface WalletState {
@@ -70,6 +73,22 @@ export interface OneInchQuoteResponse {
   fromAmount: string
   protocols: any[]
   estimatedGas: number
+}
+
+export interface OneInchSwapResponse {
+  fromToken: Token
+  toToken: Token
+  toAmount: string
+  fromAmount: string
+  protocols: any[]
+  tx: {
+    from: string
+    to: string
+    data: string
+    value: string
+    gasPrice: string
+    gas: string
+  }
 }
 
 // API Error types
