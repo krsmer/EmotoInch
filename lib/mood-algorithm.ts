@@ -19,34 +19,31 @@ export class MoodAlgorithm {
    * Score ranges from 0-100 (higher is better match)
    */
   static scoreToken(token: Token, mood: Mood): TokenScore {
-    let moodScore = 0
-    let riskScore = 0
     const reasoning: string[] = []
 
-    // 1. Category matching (40% weight)
+    // 1. Category matching (50% weight)
     const categoryScore = this.calculateCategoryScore(token, mood)
-    moodScore += categoryScore.score
     reasoning.push(...categoryScore.reasons)
 
-    // 2. Risk level matching (30% weight)
+    // 2. Risk level matching (30% weight)  
     const riskLevelScore = this.calculateRiskScore(token, mood)
-    riskScore += riskLevelScore.score
     reasoning.push(...riskLevelScore.reasons)
 
-    // 3. Token characteristics (30% weight)
+    // 3. Token characteristics (20% weight)
     const characteristicScore = this.calculateCharacteristicScore(token, mood)
-    moodScore += characteristicScore.score
     reasoning.push(...characteristicScore.reasons)
 
-    // Calculate total score (weighted average)
-    const totalScore = Math.round(
-      (moodScore * 0.7) + (riskScore * 0.3)
+    // Calculate weighted total score
+    const moodScore = Math.round(
+      (categoryScore.score * 0.5) + (characteristicScore.score * 0.2)
     )
+    const riskScore = Math.round(riskLevelScore.score * 0.3)
+    const totalScore = Math.round(moodScore + riskScore)
 
     return {
       token,
-      moodScore: Math.round(moodScore),
-      riskScore: Math.round(riskScore),
+      moodScore: Math.min(100, Math.max(0, moodScore)),
+      riskScore: Math.min(100, Math.max(0, riskScore)),
       totalScore: Math.min(100, Math.max(0, totalScore)),
       reasoning
     }
@@ -77,36 +74,76 @@ export class MoodAlgorithm {
     let score = 0
     const reasons: string[] = []
     
-    if (!token.tags || token.tags.length === 0) {
-      return { score: 20, reasons: ['No category information available'] }
+    // Smart categorization based on token name and symbol
+    const tokenInfo = `${token.symbol} ${token.name}`.toLowerCase()
+    const moodCategories = mood.categories.map(cat => cat.toLowerCase())
+    
+    // Define category patterns
+    const categoryPatterns: Record<string, string[]> = {
+      'gaming': ['game', 'gaming', 'play', 'enjin', 'axie', 'sand', 'mana', 'gala'],
+      'ai': ['ai', 'artificial', 'intelligence', 'neural', 'fet', 'agix', 'ocean'],
+      'defi': ['uni', 'aave', 'comp', 'curve', 'maker', 'yearn', 'sushi', 'pancake', 'dex'],
+      'meme': ['doge', 'shiba', 'pepe', 'floki', 'baby', 'moon', 'safe', 'inu'],
+      'layer2': ['polygon', 'matic', 'arbitrum', 'optimism', 'layer'],
+      'layer-2': ['polygon', 'matic', 'arbitrum', 'optimism', 'layer'],
+      'layer-1': ['eth', 'btc', 'ada', 'sol', 'dot', 'atom', 'avax', 'near'],
+      'metaverse': ['meta', 'virtual', 'reality', 'land', 'world', 'space'],
+      'nft': ['nft', 'collectible', 'art', 'rare', 'unique'],
+      'infrastructure': ['link', 'dot', 'ada', 'sol', 'atom', 'avax', 'near', 'ftm'],
+      'stable': ['usdt', 'usdc', 'dai', 'busd', 'frax', 'tusd', 'stable'],
+      'stablecoin': ['usdt', 'usdc', 'dai', 'busd', 'frax', 'tusd', 'stable'],
+      'blue-chip': ['eth', 'btc', 'bnb', 'ada', 'sol', 'dot', 'link', 'uni', 'aave'],
+      'defi-blue-chip': ['uni', 'aave', 'comp', 'maker', 'link', 'curve'],
+      'social': ['social', 'media', 'creator', 'content', 'fan'],
+      'energy': ['energy', 'green', 'carbon', 'climate', 'renewable'],
+      'privacy': ['privacy', 'private', 'anonymous', 'stealth', 'monero', 'zcash'],
+      'new-listings': ['new', 'recent', 'launch', 'listing'],
+      'trending': ['trend', 'viral', 'hot', 'popular'],
+      'social-sentiment': ['social', 'community', 'reddit', 'twitter'],
+      'high-volume': ['volume', 'liquid', 'active'],
+      'oversold': ['oversold', 'discount', 'cheap'],
+      'down-24h': ['down', 'dip', 'fall'],
+      'value': ['value', 'undervalued', 'cheap']
     }
-
-    // Check direct category matches
-    const moodCategories = mood.categories
-    const tokenTags = token.tags.map(tag => tag.toLowerCase())
     
     let matchCount = 0
-    moodCategories.forEach(category => {
-      if (tokenTags.some(tag => tag.includes(category.toLowerCase()))) {
+    
+    // Check for category matches
+    moodCategories.forEach(moodCategory => {
+      let categoryMatched = false
+      
+      // Direct category name match
+      if (tokenInfo.includes(moodCategory)) {
         matchCount++
-        score += 15
-        reasons.push(`Matches ${category} preference`)
+        score += 20
+        reasons.push(`Direct ${moodCategory} category match`)
+        categoryMatched = true
+      } else if (categoryPatterns[moodCategory]) {
+        // Pattern-based matching
+        const patterns = categoryPatterns[moodCategory]
+        const foundPattern = patterns.find(pattern => tokenInfo.includes(pattern))
+        if (foundPattern) {
+          matchCount++
+          score += 15
+          reasons.push(`${moodCategory} category match (${foundPattern})`)
+          categoryMatched = true
+        }
       }
     })
-
-    // Bonus for multiple matches
+    
+    // Bonus for multiple matches (but cap total category score)
     if (matchCount > 1) {
-      score += 10
+      score += 5 // Reduced bonus
       reasons.push(`Multiple category matches (+${matchCount})`)
     }
-
-    // Default score if no matches but has categories
+    
+    // Base score if no direct matches
     if (matchCount === 0) {
-      score = 10
-      reasons.push('No direct category match')
+      score = 15
+      reasons.push('No specific category match')
     }
 
-    return { score: Math.min(50, score), reasons }
+    return { score: Math.min(100, score), reasons }
   }
 
   /**
@@ -120,18 +157,17 @@ export class MoodAlgorithm {
     const reasons: string[] = []
 
     // Risk assessment based on token characteristics
-    const isStablecoin = token.tags?.some(tag => 
-      tag.toLowerCase().includes('stable') || 
-      tag.toLowerCase().includes('peg:usd')
-    )
+    const tokenInfo = `${token.symbol} ${token.name}`.toLowerCase()
     
-    const isBlueChip = token.tags?.some(tag => 
-      ['eth', 'btc', 'usdc', 'usdt'].includes(token.symbol.toLowerCase())
-    )
+    const isStablecoin = tokenInfo.includes('usd') || 
+                        ['usdt', 'usdc', 'dai', 'busd', 'frax', 'tusd'].some(stable => 
+                          tokenInfo.includes(stable))
+    
+    const isBlueChip = ['eth', 'btc', 'bnb', 'ada', 'sol', 'dot', 'link', 'uni', 'aave'].some(blue => 
+                      tokenInfo.includes(blue))
 
-    const isMeme = token.tags?.some(tag => 
-      tag.toLowerCase().includes('meme')
-    )
+    const isMeme = ['doge', 'shiba', 'pepe', 'floki', 'baby', 'moon', 'safe', 'inu', 'meme'].some(meme => 
+                   tokenInfo.includes(meme))
 
     // Score based on mood risk tolerance
     switch (mood.riskLevel) {
@@ -201,24 +237,50 @@ export class MoodAlgorithm {
     }
 
     // Mood-specific bonuses
+    const tokenInfo = `${token.symbol} ${token.name}`.toLowerCase()
+    
     switch (mood.id) {
       case 'excited':
-        if (token.symbol.includes('AI') || token.symbol.includes('GAME')) {
+        if (tokenInfo.includes('ai') || tokenInfo.includes('game') || tokenInfo.includes('meta')) {
           score += 15
           reasons.push('Trending technology sector')
         }
         break
       
       case 'fomo':
-        // Would check volume/price change in real implementation
-        score += 10
-        reasons.push('Trending momentum')
+        // Favor trending tokens and memes
+        if (tokenInfo.includes('doge') || tokenInfo.includes('shiba') || tokenInfo.includes('pepe')) {
+          score += 15
+          reasons.push('Viral trending momentum')
+        } else {
+          score += 10
+          reasons.push('General momentum potential')
+        }
         break
       
       case 'dip-buyer':
-        // Would check 24h price change in real implementation
-        score += 10
-        reasons.push('Potential value opportunity')
+        // Favor established tokens that might be undervalued
+        if (['eth', 'btc', 'ada', 'sol', 'link', 'uni'].some(symbol => tokenInfo.includes(symbol))) {
+          score += 15
+          reasons.push('Established token with dip potential')
+        } else {
+          score += 10
+          reasons.push('Potential value opportunity')
+        }
+        break
+        
+      case 'cautious':
+        // Favor stable and established tokens
+        if (tokenInfo.includes('usd') || ['eth', 'btc'].some(symbol => tokenInfo.includes(symbol))) {
+          score += 15
+          reasons.push('Safe and established choice')
+        }
+        break
+        
+      case 'balanced':
+        // No specific bonus, balanced approach
+        score += 5
+        reasons.push('Balanced approach')
         break
     }
 

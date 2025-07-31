@@ -4,7 +4,10 @@ import React, { useState } from 'react'
 import { MoodSelector } from '@/components/MoodSelector'
 import { TokenCard } from '@/components/TokenCard'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
+import { WalletConnection } from '@/components/WalletConnection'
+import { SwapModal } from '@/components/SwapModal'
 import TextType from '@/components/ui/TextType'
+import ClientOnly from '@/components/ClientOnly'
 import { Mood, Token } from '@/types'
 
 interface TokenRecommendation {
@@ -20,6 +23,10 @@ const Page = () => {
   const [recommendations, setRecommendations] = useState<TokenRecommendation[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [swapModal, setSwapModal] = useState<{ isOpen: boolean; token: Token | null }>({
+    isOpen: false,
+    token: null
+  })
 
   const handleMoodSelect = async (mood: Mood) => {
     setSelectedMood(mood)
@@ -49,9 +56,11 @@ const Page = () => {
   }
 
   const handleSwap = (token: Token) => {
-    // TODO: Implement swap functionality
-    console.log('Swap token:', token)
-    alert(`Swap functionality will be implemented for ${token.symbol}`)
+    setSwapModal({ isOpen: true, token })
+  }
+
+  const closeSwapModal = () => {
+    setSwapModal({ isOpen: false, token: null })
   }
 
   return (
@@ -72,6 +81,11 @@ const Page = () => {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Wallet Connection */}
+        <div className="mb-8">
+          <WalletConnection />
+        </div>
+
         {/* Mood Selector */}
         <div className="mb-12">
           <MoodSelector 
@@ -150,6 +164,17 @@ const Page = () => {
           </div>
         )}
       </main>
+
+      {/* Swap Modal */}
+      {swapModal.isOpen && swapModal.token && (
+        <ClientOnly>
+          <SwapModal
+            token={swapModal.token}
+            isOpen={swapModal.isOpen}
+            onClose={closeSwapModal}
+          />
+        </ClientOnly>
+      )}
     </div>
   )
 }
